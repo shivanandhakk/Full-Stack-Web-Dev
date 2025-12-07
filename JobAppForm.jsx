@@ -1,4 +1,4 @@
-import bgImg from "../../assets/Sample.jpeg";
+import bgImg from "../../assets/Image1.jpeg";
 
 export default function JobAppForm() {
 
@@ -129,3 +129,4 @@ export default function JobAppForm() {
     </form>
   );
 }
+
