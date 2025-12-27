@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GoCab - Online Cab Booking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef5ff;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 24px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .site-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #1a237e;
+      margin-bottom: 4px;
+    }
+
+    .site-subtitle {
+      font-size: 13px;
+      color: #777777;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: #1a237e;
+      margin-bottom: 16px;
+    }
+
+    button {
+      background-color: #1e88e5;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      font-size: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="site-name">GoCab.com</div>
+    <div class="site-subtitle">Online cab booking using JavaScript dialog boxes</div>
+
+    <h2>Cab Booking</h2>
+    <button onclick="bookCab()">Book Cab</button>
+  </div>
+
+  <script>
+    function bookCab() {
+      const siteName = "GoCab.com";
+      const cabCompany = "CityRide Cabs";
+      const ratePerKm = 15;  // ₹ per km (simple fixed rate)
+
+      alert("Welcome to " + siteName + " - " + cabCompany + " Booking!");
+
+      const customerName = prompt("Enter your name:");
+      if (!customerName) {
+        alert("Booking cancelled. Name is required.");
+        return;
+      }
+
+      const pickup = prompt("Enter Pickup Location:");
+      if (!pickup) {
+        alert("Booking cancelled. Pickup location is required.");
+        return;
+      }
+
+      const drop = prompt("Enter Drop Location:");
+      if (!drop) {
+        alert("Booking cancelled. Drop location is required.");
+        return;
+      }
+
+      const distance = prompt("Enter approximate distance (in km):", "10");
+      if (!distance) {
+        alert("Booking cancelled. Distance is required.");
+        return;
+      }
+
+      // Fare calculation
+      const totalFare = ratePerKm * Number(distance);
+
+      // Cab type selection
+      const cabType = prompt(
+        "Select cab type:\n1. Mini\n2. Sedan\n3. SUV\n\nType 1, 2 or 3:"
+      );
+      if (!cabType) {
+        alert("Booking cancelled. Cab type is required.");
+        return;
+      }
+
+      let cabTypeName = "";
+      if (cabType === "1") {
+        cabTypeName = "Mini";
+      } else if (cabType === "2") {
+        cabTypeName = "Sedan";
+      } else if (cabType === "3") {
+        cabTypeName = "SUV";
+      } else {
+        alert("Invalid cab type selected. Booking cancelled.");
+        return;
+      }
+
+      // Booking summary
+      const summary =
+        "Please confirm your cab booking with " + cabCompany + " via " + siteName + ":\n\n" +
+        "Customer: " + customerName + "\n" +
+        "Pickup: " + pickup + "\n" +
+        "Drop: " + drop + "\n" +
+        "Distance: " + distance + " km\n" +
+        "Cab type: " + cabTypeName + "\n" +
+        "Rate per km: ₹" + ratePerKm + "\n" +
+        "Total fare: ₹" + totalFare + "\n\n" +
+        "Click OK to confirm booking or Cancel to stop.";
+
+      const bookingConfirmed = confirm(summary); // true/false [web:11][web:14]
+
+      if (!bookingConfirmed) {
+        alert("Your cab booking was not confirmed.");
+        return;
+      }
+
+      // Payment step
+      const paymentMethod = prompt(
+        "Total fare to pay: ₹" + totalFare +
+        "\n\nSelect payment method:\n1. Cash\n2. UPI\n3. Card\n\nType 1, 2 or 3:"
+      );
+
+      if (!paymentMethod) {
+        alert("Payment cancelled. Booking not completed.");
+        return;
+      }
+
+      const paymentConfirm = confirm(
+        "You will pay ₹" + totalFare +
+        " using option " + paymentMethod +
+        " for " + cabCompany + " on " + siteName + ".\n\nProceed with payment?"
+      );
+
+      if (!paymentConfirm) {
+        alert("Payment not completed. Your cab booking was cancelled.");
+        return;
+      }
+
+      alert(
+        "Payment of ₹" + totalFare + " successful!\n\n" +
+        "Thank you, " + customerName + ".\n" +
+        "Your " + cabTypeName + " cab from " + pickup + " to " + drop +
+        " (approx. " + distance + " km) is booked with " + cabCompany +
+        " via " + siteName + "."
+      );
+    }
+  </script>
+</body>
+</html>
