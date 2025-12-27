@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlyEasy - Flight Booking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 24px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+      text-align: center;
+    }
+
+    .site-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #f10e15;
+      margin-bottom: 4px;
+    }
+
+    .site-subtitle {
+      font-size: 13px;
+      color: #777777;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: #1a237e;
+      margin-bottom: 16px;
+    }
+
+    button {
+      background-color: #1e88e5;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      font-size: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="site-name">FlyEasy.com</div>
+    <h2>Flight Ticket Booking</h2>
+    <button onclick="bookFlight()">Book Flight</button>
+  </div>
+
+  <script>
+    function bookFlight() {
+      const airlineName = "AirIndia";   // airline name
+      const siteName = "FlyEasy.com";   // site name
+      const pricePerTicket = 5000;      // fixed price per ticket
+
+      alert("Welcome to " + siteName + " - " + airlineName + " Booking!");
+
+      const name = prompt("Enter your full name:");
+      if (!name) {
+        alert("Booking cancelled. Name is required.");
+        return;
+      }
+
+      const fromCity = prompt("Enter Departure City (From):");
+      if (!fromCity) {
+        alert("Booking cancelled. Departure city is required.");
+        return;
+      }
+
+      const toCity = prompt("Enter Arrival City (To):");
+      if (!toCity) {
+        alert("Booking cancelled. Arrival city is required.");
+        return;
+      }
+
+      const date = prompt("Enter Journey Date (DD-MM-YYYY):");
+      if (!date) {
+        alert("Booking cancelled. Date is required.");
+        return;
+      }
+
+      const tickets = prompt("How many tickets? (number):", "1");
+      if (!tickets) {
+        alert("Booking cancelled. Ticket count is required.");
+        return;
+      }
+
+      const totalAmount = pricePerTicket * Number(tickets);
+
+      const summary =
+        "Please confirm your booking with " + airlineName + " via " + siteName + ":\n\n" +
+        "Passenger: " + name + "\n" +
+        "From: " + fromCity + "\n" +
+        "To: " + toCity + "\n" +
+        "Date: " + date + "\n" +
+        "Tickets: " + tickets + "\n" +
+        "Price per ticket: ₹" + pricePerTicket + "\n" +
+        "Total amount: ₹" + totalAmount + "\n\n" +
+        "Click OK to confirm booking or Cancel to stop.";
+
+      const bookingConfirmed = confirm(summary); // [web:11][web:14]
+
+      if (!bookingConfirmed) {
+        alert("Your booking was not confirmed. No ticket booked.");
+        return;
+      }
+
+      const paymentMethod = prompt(
+        "Total amount to pay: ₹" + totalAmount +
+        "\n\nSelect payment method:\n1. Card\n2. UPI\n3. Net Banking\n\nType 1, 2 or 3:"
+      );
+
+      if (!paymentMethod) {
+        alert("Payment cancelled. Booking not completed.");
+        return;
+      }
+
+      const paymentConfirm = confirm(
+        "You will pay ₹" + totalAmount +
+        " using option " + paymentMethod +
+        " for " + airlineName + " on " + siteName + ".\n\nProceed with payment?"
+      );
+
+      if (!paymentConfirm) {
+        alert("Payment not completed. Your booking was cancelled.");
+        return;
+      }
+
+      alert(
+        "Payment of ₹" + totalAmount + " successful!\n\n" +
+        "Thank you, " + name + ".\n" +
+        "Your " + airlineName + " flight from " + fromCity + " to " + toCity +
+        " on " + date + " for " + tickets +
+        " ticket(s) is booked via " + siteName + "."
+      );
+    }
+  </script>
+</body>
+</html>
