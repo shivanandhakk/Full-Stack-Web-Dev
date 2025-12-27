@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StayEasy - Hotel Reservation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 24px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .site-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4855b9;
+      margin-bottom: 4px;
+    }
+
+    .site-subtitle {
+      font-size: 13px;
+      color: #777777;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: #088b1c;
+      margin-bottom: 16px;
+    }
+
+    button {
+      background-color: #33ac86;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      font-size: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background-color: #4dc4aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="site-name">StayEasy.com</div>
+
+    <h2>Hotel Reservation</h2>
+    <button onclick="reserveRoom()">Reserve Room</button>
+  </div>
+
+  <script>
+    function reserveRoom() {
+      const siteName = "StayEasy.com";
+      const hotelName = "Grand Palace Hotel";
+
+      alert("Welcome to " + siteName + " - " + hotelName + " Reservation!");
+
+      const guestName = prompt("Enter guest full name:");
+      if (!guestName) {
+        alert("Reservation cancelled. Name is required.");
+        return;
+      }
+
+      const city = prompt("Enter city of hotel:\n KOCHI \n CHENNAI \n BANGALORE \n MUMBAI \n DELHI");
+      if (!city) {
+        alert("Reservation cancelled. City is required.");
+        return;
+      }
+
+      const checkIn = prompt("Enter Check-in Date (DD-MM-YYYY):");
+      if (!checkIn) {
+        alert("Reservation cancelled. Check-in date is required.");
+        return;
+      }
+
+      const nights = prompt("How many nights will you stay? (number):", "1");
+      if (!nights) {
+        alert("Reservation cancelled. Nights are required.");
+        return;
+      }
+
+      const roomType = prompt(
+        "Select room type:\n1. Standard (₹2000/night)\n2. Deluxe (₹3500/night)\n3. Suite (₹5000/night)\n\nType 1, 2 or 3:"
+      );
+      if (!roomType) {
+        alert("Reservation cancelled. Room type is required.");
+        return;
+      }
+
+      let roomName = "";
+      let pricePerNight = 0;
+
+      if (roomType === "1") {
+        roomName = "Standard";
+        pricePerNight = 2000;
+      } else if (roomType === "2") {
+        roomName = "Deluxe";
+        pricePerNight = 3500;
+      } else if (roomType === "3") {
+        roomName = "Suite";
+        pricePerNight = 5000;
+      } else {
+        alert("Invalid room type selected. Reservation cancelled.");
+        return;
+      }
+
+      const totalAmount = pricePerNight * Number(nights);
+
+      const summary =
+        "Please confirm your reservation at " + hotelName + " via " + siteName + ":\n\n" +
+        "Guest: " + guestName + "\n" +
+        "City: " + city + "\n" +
+        "Check-in: " + checkIn + "\n" +
+        "Nights: " + nights + "\n" +
+        "Room type: " + roomName + "\n" +
+        "Price per night: ₹" + pricePerNight + "\n" +
+        "Total amount: ₹" + totalAmount + "\n\n" +
+        "Click OK to confirm reservation or Cancel to stop.";
+
+      const reservationConfirmed = confirm(summary); // true/false [web:11][web:14]
+
+      if (!reservationConfirmed) {
+        alert("Your reservation was not confirmed. No room booked.");
+        return;
+      }
+
+      const paymentMethod = prompt(
+        "Total amount to pay: ₹" + totalAmount +
+        "\n\nSelect payment method:\n1. Card\n2. UPI\n3. Net Banking\n\nType 1, 2 or 3:"
+      );
+
+      if (!paymentMethod) {
+        alert("Payment cancelled. Reservation not completed.");
+        return;
+      }
+
+      const paymentConfirm = confirm(
+        "You will pay ₹" + totalAmount +
+        " using option " + paymentMethod +
+        " for " + hotelName + " on " + siteName + ".\n\nProceed with payment?"
+      );
+
+      if (!paymentConfirm) {
+        alert("Payment not completed. Your reservation was cancelled.");
+        return;
+      }
+
+      alert(
+        "Payment of ₹" + totalAmount + " successful!\n\n" +
+        "Thank you, " + guestName + ".\n" +
+        "Your room (" + roomName + ") at " + hotelName +
+        " in " + city + " from " + checkIn +
+        " for " + nights + " night(s) is reserved via " + siteName + "."
+      );
+    }
+  </script>
+</body>
+</html>
